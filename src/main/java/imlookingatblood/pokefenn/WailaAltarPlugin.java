@@ -1,6 +1,5 @@
 package imlookingatblood.pokefenn;
 
-import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.common.block.BlockAltar;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -63,6 +62,7 @@ public class WailaAltarPlugin implements IWailaDataProvider
             }
             try
             {
+                /*
                 Field f = TEAltar.class.getDeclaredField("progress");
                 f.setAccessible(true);
                 int progress = (Integer) f.get(accessor.getTileEntity());
@@ -73,6 +73,7 @@ public class WailaAltarPlugin implements IWailaDataProvider
                     else
                         currenttip.add(StatCollector.translateToLocal("imlookingatblood:time") + f.get(accessor.getTileEntity()));
                 }
+                */
             } catch(Exception e)
             {
 

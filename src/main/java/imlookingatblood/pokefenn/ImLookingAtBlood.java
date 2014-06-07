@@ -12,7 +12,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
  * Licensed under MIT (If this is one of my Mods)
  */
 
-@Mod(name = "I'm Looking At Blood", modid = "ImLookingAtBlood", version = "1.0", dependencies = "after:Waila;")
+@Mod(name = "I'm Looking At Blood", modid = "ImLookingAtBlood", version = "1.0", dependencies = "required-after:Waila;")
 public class ImLookingAtBlood
 {
 
@@ -27,7 +27,7 @@ public class ImLookingAtBlood
     {
         if(Loader.isModLoaded("Waila"))
         {
-            FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.WailaAltarPlugin.callbackRegister");
+            FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.WailaAltarPlugin.registerWaila");
         }
     }
 
@@ -36,10 +36,4 @@ public class ImLookingAtBlood
     {
 
     }
-
-    //public static void wailaRegistration(IWailaRegistrar registrar)
-    {
-
-    }
-
 }
