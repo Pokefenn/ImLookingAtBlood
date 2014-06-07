@@ -1,34 +1,50 @@
 package imlookingatblood.pokefenn;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.common.config.Configuration;
+
+import java.io.File;
 
 /**
  * Created by Pokefenn.
  * Licensed under MIT (If this is one of my Mods)
  */
 
-@Mod(name = "I'm Looking At Blood", modid = "ImLookingAtBlood", version = "1.0", dependencies = "required-after:Waila;")
+@Mod(name = "I'm Looking At Blood", modid = "ImLookingAtBlood", version = "1.1", dependencies = "required-after:Waila;")
 public class ImLookingAtBlood
 {
+    public static boolean doNeedDiviniation;
 
     @Mod.EventHandler
     public void fmlPreInitiation(FMLPreInitializationEvent fmlPreInitializationEvent)
     {
+        Configuration configuration;
+        File configFile = new File(fmlPreInitializationEvent.getModConfigurationDirectory(), "imlookingatblood.cfg");
 
+        configuration = new Configuration(configFile);
+
+        try
+        {
+            doNeedDiviniation = configuration.get("general", "doesNeedDiviniationSigilInHandForAltar", false).getBoolean(false);
+        } catch(Exception e)
+        {
+        } finally
+        {
+            configuration.save();
+        }
     }
 
     @Mod.EventHandler
     public void fmlInitiation(FMLInitializationEvent fmlInitializationEvent)
     {
-        if(Loader.isModLoaded("Waila"))
-        {
-            FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.WailaAltarPlugin.registerWaila");
-        }
+        FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.WailaBMPlugin.registerWaila");
+        FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.ChemistrySet.registerWaila");
+        FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.RitualStone.registerWaila");
+        FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.Teleposer.registerWaila");
     }
 
     @Mod.EventHandler

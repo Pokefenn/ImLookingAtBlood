@@ -1,5 +1,6 @@
 package imlookingatblood.pokefenn;
 
+import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.common.block.BlockAltar;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -17,11 +18,11 @@ import java.util.List;
  * Licensed under MIT (If this is one of my Mods)
  */
 
-public class WailaAltarPlugin implements IWailaDataProvider
+public class WailaBMPlugin implements IWailaDataProvider
 {
     public static void registerWaila(IWailaRegistrar registrar)
     {
-        registrar.registerBodyProvider(new WailaAltarPlugin(), BlockAltar.class);
+        registrar.registerBodyProvider(new WailaBMPlugin(), BlockAltar.class);
     }
 
     @Override
@@ -44,10 +45,9 @@ public class WailaAltarPlugin implements IWailaDataProvider
         if(isAltar)
         {
             TEAltar altar = (TEAltar) accessor.getTileEntity();
-
-            if(altar.getFluidAmount() == 0)
-                currenttip.add(StatCollector.translateToLocal("imlookingatblood:noFluid"));
-            else
+            if(!ImLookingAtBlood.doNeedDiviniation)
+                currenttip.add(StatCollector.translateToLocal("imlookingatblood:currentFluid") + altar.getFluidAmount());
+            else if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.divinationSigil)
                 currenttip.add(StatCollector.translateToLocal("imlookingatblood:currentFluid") + altar.getFluidAmount());
 
             try
@@ -55,7 +55,6 @@ public class WailaAltarPlugin implements IWailaDataProvider
                 Field f = TEAltar.class.getDeclaredField("upgradeLevel");
                 f.setAccessible(true);
                 currenttip.add(StatCollector.translateToLocal("imlookingatblood:upgrade") + f.get(accessor.getTileEntity()));
-
             } catch(Exception e)
             {
 
