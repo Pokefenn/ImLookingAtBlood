@@ -51,11 +51,11 @@ public class RitualStone implements IWailaDataProvider
 
             try
             {
-                Field f = TEMasterStone.class.getDeclaredField("currentRitualString");
+                Field f = TEMasterStone.class.getDeclaredField("currentRitual");
                 f.setAccessible(true);
-                String ritualName = (String) f.get(accessor.getTileEntity());
-                if(!ritualName.equals(""))
-                    currenttip.add(Rituals.getNameOfRitual((ritualName)));
+                int ritual = (Integer) f.get(accessor.getTileEntity());
+                if(ritual != 0)
+                    currenttip.add(Rituals.getNameOfRitual(ritual));
             } catch(Exception e)
             {
                 e.printStackTrace();

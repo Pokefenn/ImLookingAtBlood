@@ -72,7 +72,7 @@ public class WailaBMPlugin implements IWailaDataProvider
                 Field f = TEAltar.class.getDeclaredField("progress");
                 f.setAccessible(true);
                 int progress = (Integer) f.get(accessor.getTileEntity());
-                if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.itemSeerSigil)
+                if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.divinationSigil)
                 {
                     currenttip.add(StatCollector.translateToLocal("imlookingatblood:time") + f.get(accessor.getTileEntity()));
                 }
