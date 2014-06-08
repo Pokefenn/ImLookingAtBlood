@@ -50,32 +50,35 @@ public class WailaBMPlugin implements IWailaDataProvider
             else if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.divinationSigil)
                 currenttip.add(StatCollector.translateToLocal("imlookingatblood:currentFluid") + altar.getFluidAmount());
 
+            if(!ImLookingAtBlood.doNeedDiviniation)
+                currenttip.add(StatCollector.translateToLocal("imlookingatblood:capacity") + altar.getCapacity());
+            else if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.divinationSigil)
+                currenttip.add(StatCollector.translateToLocal("imlookingatblood:capacity") + altar.getCapacity());
+
             try
             {
                 Field f = TEAltar.class.getDeclaredField("upgradeLevel");
                 f.setAccessible(true);
-                currenttip.add(StatCollector.translateToLocal("imlookingatblood:upgrade") + f.get(accessor.getTileEntity()));
+                if(!ImLookingAtBlood.doNeedDiviniation)
+                    currenttip.add(StatCollector.translateToLocal("imlookingatblood:upgrade") + f.get(accessor.getTileEntity()));
+                else if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.divinationSigil)
+                    currenttip.add(StatCollector.translateToLocal("imlookingatblood:upgrade") + f.get(accessor.getTileEntity()));
             } catch(Exception e)
             {
-
+                e.printStackTrace();
             }
             try
             {
-                /*
                 Field f = TEAltar.class.getDeclaredField("progress");
                 f.setAccessible(true);
                 int progress = (Integer) f.get(accessor.getTileEntity());
                 if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.itemSeerSigil)
                 {
-                    if(progress == 0)
-                        currenttip.add(StatCollector.translateToLocal("imlookingatblood:noprogress"));
-                    else
-                        currenttip.add(StatCollector.translateToLocal("imlookingatblood:time") + f.get(accessor.getTileEntity()));
+                    currenttip.add(StatCollector.translateToLocal("imlookingatblood:time") + f.get(accessor.getTileEntity()));
                 }
-                */
             } catch(Exception e)
             {
-
+                e.printStackTrace();
             }
 
         }

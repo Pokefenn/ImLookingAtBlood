@@ -45,7 +45,7 @@ public class Teleposer implements IWailaDataProvider
 
             if(teleposer.getStackInSlot(0) != null)
             {
-                currenttip.add(teleposer.getStackInSlot(0).getUnlocalizedName());
+                currenttip.add(teleposer.getStackInSlot(0).getDisplayName());
             }
         }
 

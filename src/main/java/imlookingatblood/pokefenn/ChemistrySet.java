@@ -43,6 +43,7 @@ public class ChemistrySet implements IWailaDataProvider
 
         if(isChemistrySet)
         {
+
             try
             {
                 Field f = TEWritingTable.class.getDeclaredField("progress");
@@ -50,10 +51,15 @@ public class ChemistrySet implements IWailaDataProvider
                 currenttip.add(StatCollector.translateToLocal("imlookingatblood:chemistrySetProgress") + f.get(accessor.getTileEntity()));
             } catch(Exception e)
             {
-
+                e.printStackTrace();
             }
 
             TEWritingTable chemistrySet = (TEWritingTable) accessor.getTileEntity();
+
+            if(chemistrySet.getResultingItemStack() != null)
+            {
+                currenttip.add(chemistrySet.getResultingItemStack().getDisplayName());
+            }
 
         }
         return currenttip;

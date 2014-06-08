@@ -29,9 +29,11 @@ public class ImLookingAtBlood
 
         try
         {
-            doNeedDiviniation = configuration.get("general", "doesNeedDiviniationSigilInHandForAltar", false).getBoolean(false);
+            configuration.load();
+            doNeedDiviniation = configuration.get("general", "doesNeedDiviniationSigilInHandForAltar", true).getBoolean(true);
         } catch(Exception e)
         {
+            e.printStackTrace();
         } finally
         {
             configuration.save();
