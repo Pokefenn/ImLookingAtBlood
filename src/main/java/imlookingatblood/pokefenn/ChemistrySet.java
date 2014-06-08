@@ -32,7 +32,6 @@ public class ChemistrySet implements IWailaDataProvider
     @Override
     public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
-
         return currenttip;
     }
 
