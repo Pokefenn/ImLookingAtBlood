@@ -5,7 +5,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
 
@@ -14,7 +14,7 @@ import java.io.File;
  * Licensed under MIT (If this is one of my Mods)
  */
 
-@Mod(name = "I'm Looking At Blood", modid = "ImLookingAtBlood", version = "1.2", dependencies = "required-after:Waila;")
+@Mod(name = "I'm Looking At Blood", modid = "ImLookingAtBlood", version = "1.1", dependencies = "required-after:Waila;")
 public class ImLookingAtBlood
 {
     public static boolean doNeedDiviniation;
