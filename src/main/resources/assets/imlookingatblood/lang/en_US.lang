@@ -1,8 +1,10 @@
 # Waila localizations
-imlookingatblood:currentFluid=Life Essence: 
+imlookingatblood:currentFluid=Life Essence:
 imlookingatblood:upgrade=Altar Tier:
 imlookingatblood:time=Altar Progress:
 imlookingatblood:chemistrySetProgress=Item Progress:
 imlookingatblood:owner=Owner:
 imlookingatblood:ritualString=Current Ritual:
 imlookingatblood:altarCapacity=Capacity:
+imlookingatblood:result=Result:
+imlookingatblood:lp=Soul Network:

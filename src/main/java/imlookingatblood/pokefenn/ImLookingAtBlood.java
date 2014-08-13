@@ -14,7 +14,7 @@ import java.io.File;
  * Licensed under MIT (If this is one of my Mods)
  */
 
-@Mod(name = "I'm Looking At Blood", modid = "ImLookingAtBlood", version = "1.1", dependencies = "required-after:Waila;")
+@Mod(name = "I'm Looking At Blood", modid = "ImLookingAtBlood", version = "1.2", dependencies = "required-after:Waila;")
 public class ImLookingAtBlood
 {
     public static boolean doNeedDiviniation;
@@ -43,7 +43,7 @@ public class ImLookingAtBlood
     @Mod.EventHandler
     public void fmlInitiation(FMLInitializationEvent fmlInitializationEvent)
     {
-        FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.WailaBMPlugin.registerWaila");
+        FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.Altar.registerWaila");
         FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.ChemistrySet.registerWaila");
         FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.RitualStone.registerWaila");
         FMLInterModComms.sendMessage("Waila", "register", "imlookingatblood.pokefenn.Teleposer.registerWaila");

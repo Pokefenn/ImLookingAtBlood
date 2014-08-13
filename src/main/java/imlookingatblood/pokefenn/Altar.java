@@ -1,6 +1,9 @@
 package imlookingatblood.pokefenn;
 
 import WayofTime.alchemicalWizardry.ModItems;
+import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
+import WayofTime.alchemicalWizardry.api.tile.IBloodAltar;
 import WayofTime.alchemicalWizardry.common.block.BlockAltar;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -10,7 +13,6 @@ import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -18,11 +20,11 @@ import java.util.List;
  * Licensed under MIT (If this is one of my Mods)
  */
 
-public class WailaBMPlugin implements IWailaDataProvider
+public class Altar implements IWailaDataProvider
 {
     public static void registerWaila(IWailaRegistrar registrar)
     {
-        registrar.registerBodyProvider(new WailaBMPlugin(), BlockAltar.class);
+        registrar.registerBodyProvider(new Altar(), BlockAltar.class);
     }
 
     @Override
@@ -41,10 +43,23 @@ public class WailaBMPlugin implements IWailaDataProvider
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
         boolean isAltar = accessor.getTileEntity() instanceof TEAltar;
+        boolean isIAltar = accessor.getTileEntity() instanceof IBloodAltar;
 
-        if(isAltar)
+        if(isAltar && isIAltar)
         {
             TEAltar altar = (TEAltar) accessor.getTileEntity();
+
+            if(altar.getStackInSlot(0) != null && altar.getStackInSlot(0).getItem() instanceof IBloodOrb)
+            {
+                if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.divinationSigil)
+                {
+                    String name = altar.getStackInSlot(0).stackTagCompound.getString("ownerName");
+                    int lp = SoulNetworkHandler.getCurrentEssence(name);
+                    currenttip.add("imlookinatblood:lp" + name);
+                    currenttip.add("imlookinatblood:lp" + lp);
+                }
+            }
+
             if(!ImLookingAtBlood.doNeedDiviniation)
                 currenttip.add(StatCollector.translateToLocal("imlookingatblood:currentFluid") + altar.getFluidAmount());
             else if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.divinationSigil)
@@ -57,24 +72,22 @@ public class WailaBMPlugin implements IWailaDataProvider
 
             try
             {
-                Field f = TEAltar.class.getDeclaredField("upgradeLevel");
-                f.setAccessible(true);
+                int upgradeLevel = ((TEAltar) accessor.getTileEntity()).getTier();
                 if(!ImLookingAtBlood.doNeedDiviniation)
-                    currenttip.add(StatCollector.translateToLocal("imlookingatblood:upgrade") + f.get(accessor.getTileEntity()));
+                    currenttip.add(StatCollector.translateToLocal("imlookingatblood:upgrade") + upgradeLevel);
                 else if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.divinationSigil)
-                    currenttip.add(StatCollector.translateToLocal("imlookingatblood:upgrade") + f.get(accessor.getTileEntity()));
+                    currenttip.add(StatCollector.translateToLocal("imlookingatblood:upgrade") + upgradeLevel);
             } catch(Exception e)
             {
                 e.printStackTrace();
             }
             try
             {
-                Field f = TEAltar.class.getDeclaredField("progress");
-                f.setAccessible(true);
-                int progress = (Integer) f.get(accessor.getTileEntity());
+                int progress = ((TEAltar) accessor.getTileEntity()).getProgress();
+
                 if(accessor.getPlayer().getHeldItem() != null && accessor.getPlayer().getHeldItem().getItem() == ModItems.itemSeerSigil)
                 {
-                    currenttip.add(StatCollector.translateToLocal("imlookingatblood:time") + f.get(accessor.getTileEntity()));
+                    currenttip.add(StatCollector.translateToLocal("imlookingatblood:time") + progress);
                 }
             } catch(Exception e)
             {

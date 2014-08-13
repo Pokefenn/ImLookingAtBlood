@@ -55,7 +55,7 @@ public class RitualStone implements IWailaDataProvider
                 f.setAccessible(true);
                 String ritualName = (String) f.get(accessor.getTileEntity());
                 if(!ritualName.equals(""))
-                    currenttip.add(Rituals.getNameOfRitual((ritualName)));
+                    currenttip.add(Rituals.getNameOfRitual(ritualName));
             } catch(Exception e)
             {
                 e.printStackTrace();
